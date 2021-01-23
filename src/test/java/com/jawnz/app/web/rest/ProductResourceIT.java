@@ -44,6 +44,9 @@ public class ProductResourceIT {
     private static final String DEFAULT_DESCRIPTION = "AAAAAAAAAA";
     private static final String UPDATED_DESCRIPTION = "BBBBBBBBBB";
 
+    private static final String DEFAULT_NAME = "AAAAAAAAAA";
+    private static final String UPDATED_NAME = "BBBBBBBBBB";
+
     @Autowired
     private ProductRepository productRepository;
 
@@ -71,7 +74,8 @@ public class ProductResourceIT {
      */
     public static Product createEntity() {
         Product product = new Product()
-            .description(DEFAULT_DESCRIPTION);
+            .description(DEFAULT_DESCRIPTION)
+            .name(DEFAULT_NAME);
         return product;
     }
     /**
@@ -82,7 +86,8 @@ public class ProductResourceIT {
      */
     public static Product createUpdatedEntity() {
         Product product = new Product()
-            .description(UPDATED_DESCRIPTION);
+            .description(UPDATED_DESCRIPTION)
+            .name(UPDATED_NAME);
         return product;
     }
 
@@ -106,6 +111,7 @@ public class ProductResourceIT {
         assertThat(productList).hasSize(databaseSizeBeforeCreate + 1);
         Product testProduct = productList.get(productList.size() - 1);
         assertThat(testProduct.getDescription()).isEqualTo(DEFAULT_DESCRIPTION);
+        assertThat(testProduct.getName()).isEqualTo(DEFAULT_NAME);
 
         // Validate the Product in Elasticsearch
         verify(mockProductSearchRepository, times(1)).save(testProduct);
@@ -152,6 +158,24 @@ public class ProductResourceIT {
     }
 
     @Test
+    public void checkNameIsRequired() throws Exception {
+        int databaseSizeBeforeTest = productRepository.findAll().size();
+        // set the field null
+        product.setName(null);
+
+        // Create the Product, which fails.
+
+
+        restProductMockMvc.perform(post("/api/products").with(csrf())
+            .contentType(MediaType.APPLICATION_JSON)
+            .content(TestUtil.convertObjectToJsonBytes(product)))
+            .andExpect(status().isBadRequest());
+
+        List<Product> productList = productRepository.findAll();
+        assertThat(productList).hasSize(databaseSizeBeforeTest);
+    }
+
+    @Test
     public void getAllProducts() throws Exception {
         // Initialize the database
         productRepository.save(product);
@@ -161,7 +185,8 @@ public class ProductResourceIT {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(product.getId())))
-            .andExpect(jsonPath("$.[*].description").value(hasItem(DEFAULT_DESCRIPTION)));
+            .andExpect(jsonPath("$.[*].description").value(hasItem(DEFAULT_DESCRIPTION)))
+            .andExpect(jsonPath("$.[*].name").value(hasItem(DEFAULT_NAME)));
     }
     
     @Test
@@ -174,7 +199,8 @@ public class ProductResourceIT {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.id").value(product.getId()))
-            .andExpect(jsonPath("$.description").value(DEFAULT_DESCRIPTION));
+            .andExpect(jsonPath("$.description").value(DEFAULT_DESCRIPTION))
+            .andExpect(jsonPath("$.name").value(DEFAULT_NAME));
     }
     @Test
     public void getNonExistingProduct() throws Exception {
@@ -193,7 +219,8 @@ public class ProductResourceIT {
         // Update the product
         Product updatedProduct = productRepository.findById(product.getId()).get();
         updatedProduct
-            .description(UPDATED_DESCRIPTION);
+            .description(UPDATED_DESCRIPTION)
+            .name(UPDATED_NAME);
 
         restProductMockMvc.perform(put("/api/products").with(csrf())
             .contentType(MediaType.APPLICATION_JSON)
@@ -205,6 +232,7 @@ public class ProductResourceIT {
         assertThat(productList).hasSize(databaseSizeBeforeUpdate);
         Product testProduct = productList.get(productList.size() - 1);
         assertThat(testProduct.getDescription()).isEqualTo(UPDATED_DESCRIPTION);
+        assertThat(testProduct.getName()).isEqualTo(UPDATED_NAME);
 
         // Validate the Product in Elasticsearch
         verify(mockProductSearchRepository, times(2)).save(testProduct);
@@ -261,6 +289,7 @@ public class ProductResourceIT {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(product.getId())))
-            .andExpect(jsonPath("$.[*].description").value(hasItem(DEFAULT_DESCRIPTION)));
+            .andExpect(jsonPath("$.[*].description").value(hasItem(DEFAULT_DESCRIPTION)))
+            .andExpect(jsonPath("$.[*].name").value(hasItem(DEFAULT_NAME)));
     }
 }

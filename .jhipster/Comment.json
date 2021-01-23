@@ -1,7 +1,15 @@
 {
   "fluentMethods": true,
   "clientRootFolder": "jawnzapp",
-  "relationships": [],
+  "relationships": [
+    {
+      "relationshipName": "product",
+      "otherEntityName": "product",
+      "relationshipType": "many-to-one",
+      "otherEntityField": "name",
+      "otherEntityRelationshipName": "comment"
+    }
+  ],
   "fields": [
     {
       "fieldName": "text",

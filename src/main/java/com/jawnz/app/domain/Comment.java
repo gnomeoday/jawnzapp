@@ -1,8 +1,10 @@
 package com.jawnz.app.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
+import org.springframework.data.mongodb.core.mapping.DBRef;
 import javax.validation.constraints.*;
 
 import org.springframework.data.elasticsearch.annotations.FieldType;
@@ -29,6 +31,11 @@ public class Comment implements Serializable {
 
     @Field("created")
     private ZonedDateTime created;
+
+    @DBRef
+    @Field("product")
+    @JsonIgnoreProperties(value = "comments", allowSetters = true)
+    private Product product;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
     public String getId() {
@@ -63,6 +70,19 @@ public class Comment implements Serializable {
 
     public void setCreated(ZonedDateTime created) {
         this.created = created;
+    }
+
+    public Product getProduct() {
+        return product;
+    }
+
+    public Comment product(Product product) {
+        this.product = product;
+        return this;
+    }
+
+    public void setProduct(Product product) {
+        this.product = product;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here
 
