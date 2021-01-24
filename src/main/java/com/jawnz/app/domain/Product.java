@@ -35,6 +35,12 @@ public class Product implements Serializable {
     @Field("name")
     private String name;
 
+    @Field("image")
+    private byte[] image;
+
+    @Field("image_content_type")
+    private String imageContentType;
+
     @DBRef
     @Field("comment")
     private Set<Comment> comments = new HashSet<>();
@@ -72,6 +78,32 @@ public class Product implements Serializable {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public byte[] getImage() {
+        return image;
+    }
+
+    public Product image(byte[] image) {
+        this.image = image;
+        return this;
+    }
+
+    public void setImage(byte[] image) {
+        this.image = image;
+    }
+
+    public String getImageContentType() {
+        return imageContentType;
+    }
+
+    public Product imageContentType(String imageContentType) {
+        this.imageContentType = imageContentType;
+        return this;
+    }
+
+    public void setImageContentType(String imageContentType) {
+        this.imageContentType = imageContentType;
     }
 
     public Set<Comment> getComments() {
@@ -123,6 +155,8 @@ public class Product implements Serializable {
             "id=" + getId() +
             ", description='" + getDescription() + "'" +
             ", name='" + getName() + "'" +
+            ", image='" + getImage() + "'" +
+            ", imageContentType='" + getImageContentType() + "'" +
             "}";
     }
 }

@@ -25,6 +25,11 @@
       "fieldValidateRulesMinlength": "1",
       "fieldValidateRulesMaxlength": "100",
       "fieldValidateRulesPattern": "(^[a-zA-Z0-9 #!£$%?]*$)"
+    },
+    {
+      "fieldName": "image",
+      "fieldType": "byte[]",
+      "fieldTypeBlobContent": "any"
     }
   ],
   "dto": "no",
