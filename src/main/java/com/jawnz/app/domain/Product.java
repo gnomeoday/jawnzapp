@@ -25,13 +25,13 @@ public class Product implements Serializable {
 
     @NotNull
     @Size(min = 1, max = 250)
-    @Pattern(regexp = "(^[a-zA-Z0-9 #!£$%?]*$)")
+    @Pattern(regexp = "(^[a-zA-Z0-9 #!£$%?,.%&+\"'@]*$)")
     @Field("description")
     private String description;
 
     @NotNull
     @Size(min = 1, max = 100)
-    @Pattern(regexp = "(^[a-zA-Z0-9 #!£$%?]*$)")
+    @Pattern(regexp = "(^[a-zA-Z0-9 #!£$%?,.%&+\"'@]*$)")
     @Field("name")
     private String name;
 

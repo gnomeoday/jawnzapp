@@ -8,6 +8,14 @@
       "relationshipType": "many-to-one",
       "otherEntityField": "name",
       "otherEntityRelationshipName": "comment"
+    },
+    {
+      "relationshipName": "parent",
+      "otherEntityName": "comment",
+      "relationshipType": "one-to-one",
+      "otherEntityField": "text",
+      "ownerSide": true,
+      "otherEntityRelationshipName": "child"
     }
   ],
   "fields": [
@@ -17,7 +25,7 @@
       "fieldValidateRules": ["required", "minlength", "maxlength", "pattern"],
       "fieldValidateRulesMinlength": "1",
       "fieldValidateRulesMaxlength": "250",
-      "fieldValidateRulesPattern": "(^[a-zA-Z0-9 #!£$%?]*$)"
+      "fieldValidateRulesPattern": "(^[a-zA-Z0-9 #!£$%?,.%&+\"'@]*$)"
     },
     {
       "fieldName": "created",

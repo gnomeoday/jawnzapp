@@ -25,7 +25,7 @@ public class Comment implements Serializable {
 
     @NotNull
     @Size(min = 1, max = 250)
-    @Pattern(regexp = "(^[a-zA-Z0-9 #!£$%?]*$)")
+    @Pattern(regexp = "(^[a-zA-Z0-9 #!£$%?,.%&+\"'@]*$)")
     @Field("text")
     private String text;
 
@@ -36,6 +36,10 @@ public class Comment implements Serializable {
     @Field("product")
     @JsonIgnoreProperties(value = "comments", allowSetters = true)
     private Product product;
+
+    @DBRef
+    @Field("parent")
+    private Comment parent;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
     public String getId() {
@@ -83,6 +87,19 @@ public class Comment implements Serializable {
 
     public void setProduct(Product product) {
         this.product = product;
+    }
+
+    public Comment getParent() {
+        return parent;
+    }
+
+    public Comment parent(Comment comment) {
+        this.parent = comment;
+        return this;
+    }
+
+    public void setParent(Comment comment) {
+        this.parent = comment;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here
 

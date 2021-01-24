@@ -16,7 +16,7 @@
       "fieldValidateRules": ["required", "minlength", "maxlength", "pattern"],
       "fieldValidateRulesMinlength": "1",
       "fieldValidateRulesMaxlength": "250",
-      "fieldValidateRulesPattern": "(^[a-zA-Z0-9 #!£$%?]*$)"
+      "fieldValidateRulesPattern": "(^[a-zA-Z0-9 #!£$%?,.%&+\"'@]*$)"
     },
     {
       "fieldName": "name",
@@ -24,7 +24,7 @@
       "fieldValidateRules": ["required", "minlength", "maxlength", "pattern"],
       "fieldValidateRulesMinlength": "1",
       "fieldValidateRulesMaxlength": "100",
-      "fieldValidateRulesPattern": "(^[a-zA-Z0-9 #!£$%?]*$)"
+      "fieldValidateRulesPattern": "(^[a-zA-Z0-9 #!£$%?,.%&+\"'@]*$)"
     },
     {
       "fieldName": "image",
