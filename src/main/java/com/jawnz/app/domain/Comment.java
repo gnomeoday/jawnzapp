@@ -10,6 +10,8 @@ import javax.validation.constraints.*;
 import org.springframework.data.elasticsearch.annotations.FieldType;
 import java.io.Serializable;
 import java.time.ZonedDateTime;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * A Comment.
@@ -40,6 +42,10 @@ public class Comment implements Serializable {
     @DBRef
     @Field("parent")
     private Comment parent;
+
+    @DBRef
+    @Field("tag")
+    private Set<Tag> tags = new HashSet<>();
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
     public String getId() {
@@ -100,6 +106,31 @@ public class Comment implements Serializable {
 
     public void setParent(Comment comment) {
         this.parent = comment;
+    }
+
+    public Set<Tag> getTags() {
+        return tags;
+    }
+
+    public Comment tags(Set<Tag> tags) {
+        this.tags = tags;
+        return this;
+    }
+
+    public Comment addTag(Tag tag) {
+        this.tags.add(tag);
+        tag.setComment(this);
+        return this;
+    }
+
+    public Comment removeTag(Tag tag) {
+        this.tags.remove(tag);
+        tag.setComment(null);
+        return this;
+    }
+
+    public void setTags(Set<Tag> tags) {
+        this.tags = tags;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here
 

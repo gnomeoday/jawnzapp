@@ -1,0 +1,32 @@
+{
+  "fluentMethods": true,
+  "clientRootFolder": "jawnzapp",
+  "relationships": [
+    {
+      "relationshipName": "comment",
+      "otherEntityName": "comment",
+      "relationshipType": "many-to-one",
+      "otherEntityField": "text",
+      "otherEntityRelationshipName": "tag"
+    }
+  ],
+  "fields": [
+    {
+      "fieldName": "text",
+      "fieldType": "String",
+      "fieldValidateRules": ["required", "minlength", "maxlength", "pattern"],
+      "fieldValidateRulesMinlength": "1",
+      "fieldValidateRulesMaxlength": "100",
+      "fieldValidateRulesPattern": "(^[a-zA-Z0-9 #!£$%?,.%&+\\\"'@]*$)"
+    }
+  ],
+  "dto": "no",
+  "searchEngine": "elasticsearch",
+  "service": "serviceImpl",
+  "entityTableName": "tag",
+  "databaseType": "mongodb",
+  "readOnly": false,
+  "jpaMetamodelFiltering": false,
+  "pagination": "pagination",
+  "microserviceName": "jawnzapp"
+}
