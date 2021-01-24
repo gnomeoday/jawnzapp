@@ -16,6 +16,12 @@
       "otherEntityField": "text",
       "ownerSide": true,
       "otherEntityRelationshipName": "child"
+    },
+    {
+      "relationshipName": "tag",
+      "otherEntityName": "tag",
+      "relationshipType": "one-to-many",
+      "otherEntityRelationshipName": "comment"
     }
   ],
   "fields": [
